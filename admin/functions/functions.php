@@ -714,7 +714,7 @@ if (isset($_POST['msgr'])) {
   while ($row = mysqli_fetch_array($res)) {
   $x = $row['tel1'];
  
-$a = urlencode('Greatnessabolade@outlook.com'); //Note: urlencodemust be added forusernameand
+$a = urlencode('info@dagloremodelschool.com.ng'); //Note: urlencodemust be added forusernameand
 $b = urlencode('securemelikekilode'); // passwordas encryption code for security purpose.
 
 $url = "https://portal.nigeriabulksms.com/api/?username=".$a."&password=".$b."&message=".$c."&sender=".$d."&mobiles=".$x;

@@ -471,29 +471,42 @@ $(document).ready(function () {
     }
   });
 
-
   //edit uploaded assignment file
-    $("#eduplagn").click(function () {
-        var fd = new FormData();
-        var fle = $("#edfileToUpload").prop("files")[0];
-        fd.append("edassfile", fle);
-    
-        if (fle == null || fle == "") {
-          $(toastr.error("Assignment file can`t be empty"));
-        } else {
-          $("#ModalCenter").modal("show");
-          $(toastr.error("Loading... Please wait"));
-    
-          $.ajax({
-            type: "post",
-            url: "functions/init.php",
-            data: fd,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-              $(toastr.error(data)).html(data);
-            },
-          });
-        }
+  $("#eduplagn").click(function () {
+    var fd = new FormData();
+    var files = $("#edfileToUpload").prop("files")[0];
+    fd.append("fle", files);
+
+    if (files == null || files == "") {
+      $(toastr.error("Assignment file can`t be empty"));
+    } else {
+      $("#ModalCenter").modal("show");
+      $(toastr.error("Loading... Please wait"));
+      $.ajax({
+        type: "post",
+        url: "functions/init.php",
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+          $(toastr.error(data)).html(data);
+        },
       });
+    }
+  });
+
+
+    //-------------reset assignmnets------------------//
+    $("#assreseted").click(function () {
+      var assclss = $("#clss").text();
+  
+      $.ajax({
+        type: "post",
+        url: "functions/init.php",
+        data: {assclss:assclss},
+        success: function (data) {
+          $(toastr.error(data)).html(data);
+        },
+      });
+    });
 });

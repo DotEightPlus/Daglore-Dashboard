@@ -49,7 +49,7 @@ $_SESSION['ws'] = $_GET['id'];
                             <label>Edit Uploaded assignment file</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="fileToUpload">
+                                    <input type="file" class="custom-file-input" id="edfileToUpload">
                                     <label class="custom-file-label" for="edfileToUpload">Choose file</label>
                                 </div>
 

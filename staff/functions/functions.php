@@ -650,10 +650,10 @@ echo 'Loading.. Please wait!';
 
 
 //update assignment
-if (!empty($_FILES["edassfile"]["name"])) {
+if (!empty($_FILES["fle"]["name"])) {
 	
 	$target_dir = "../upload/assignments/";
-	$target_file =  basename($_FILES["edassfile"]["name"]);
+	$target_file =  basename($_FILES["fle"]["name"]);
 	$targetFilePath = $target_dir . $target_file;
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -676,7 +676,7 @@ if (!empty($_FILES["edassfile"]["name"])) {
 	// if everything is ok, try to upload file
 	} else {
 	   
-	   move_uploaded_file($_FILES["edassfile"]["tmp_name"], $targetFilePath);
+	   move_uploaded_file($_FILES["fle"]["tmp_name"], $targetFilePath);
 	   edimg_prod($target_file);
 	   echo 'Loading.. Please wait!';
 	   echo '<script>window.location.href ="./assignment"</script>';
@@ -698,5 +698,30 @@ $res = query($sql);
 echo 'Loading.. Please wait!';
 
 //unset($_SESSION['ws']);
+}
+
+
+
+//------- delete assignment -------//
+if (isset($_POST['assclss'])) {
+	
+	$clss             =  $_SESSION['ws'];
+
+	$ssl  = "SELECT * from assignment WHERE `class`= '$clss'";
+	$cons = query($ssl);
+	while($row = mysqli_fetch_array($cons)) {
+	$x = $row['file'];	
+
+	
+	unlink("../upload/assignments/$x");	
+	
+	};
+	
+	$sql = "DELETE FROM `assignment` WHERE `class`= '$clss'";
+	$result = query($sql);
+	
+
+	echo 'Loading.. Please wait';
+	echo '<script>window.location.href ="./assignment"</script>';
 }
 ?>
