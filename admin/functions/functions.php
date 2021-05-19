@@ -172,7 +172,7 @@ function enrol($surname, $firstname, $lastname, $date, $month, $year, $gender, $
 			
 	$e = "$x" + 1;
 
-	$sch = "DOT";
+	$sch = "DMS";
 	$cat = "STUD";
 	$year = date("Y");
 	$admcode = "$sch/$cat/$year/";
@@ -456,7 +456,7 @@ function appoint($title, $surname, $firstname, $lastname, $date, $month, $year, 
 		
 	$e = "$x" + 1;
 
-	$sch = "DOT";
+	$sch = "DMS";
 	$cat2 = "STAFF";
 	$year = date("Y");
 	$admcode = "$sch/$cat2/$year/";
@@ -675,14 +675,14 @@ if (isset($_POST['delstf'])) {
 if (isset($_POST['msg'])) {
 
   $c = $_POST['msg'];
-  $d = "Paradise";
+  $d = "Daglore";
 	
-  $sql = "SELECT * from students";
+  $sql = "SELECT * from students GROUP BY `Telephone1`, `Telephone2`";
   $res = query($sql);
   while ($row = mysqli_fetch_array($res)) {
   $x = $row['Telephone1']." ".$row['Telephone2'];
  
-$a = urlencode('Greatnessabolade@outlook.com'); //Note: urlencodemust be added forusernameand
+$a = urlencode('info@dagloremodelschool.com.ng'); //Note: urlencodemust be added forusernameand
 $b = urlencode('securemelikekilode'); // passwordas encryption code for security purpose.
 
 $url = "https://portal.nigeriabulksms.com/api/?username=".$a."&password=".$b."&message=".$c."&sender=".$d."&mobiles=".$x;
@@ -707,9 +707,9 @@ echo '<script>window.location.href ="./parent"</script>';
 if (isset($_POST['msgr'])) {
 
   $c = $_POST['msgr'];
-  $d = "Paradise";
+  $d = "Daglore";
 	
-  $sql = "SELECT * from staff";
+  $sql = "SELECT * from staff GROUP BY `tel1`";
   $res = query($sql);
   while ($row = mysqli_fetch_array($res)) {
   $x = $row['tel1'];
@@ -730,4 +730,4 @@ $_SESSION['msgs'] = "Message sent successfully";
 echo '<script>window.location.href ="./staffs"</script>';
 }
 }
-?> 
+?>
