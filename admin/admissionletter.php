@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <link rel="icon" href="dist/img/favicon2.ico" type="image/ico" />
+    <link rel="icon" href="dist/img/logo.png" type="image/ico" />
     <title>Admission Letter</title>
 </head>
+
 </html>
 <?php
 require ("functions/init.php");
@@ -56,13 +58,13 @@ $pdf->SetFont('Arial','',10);
 		$pdf->Cell(10,10,'OFFER OF PROVISIONAL ADMISSION INTO'. " " .strtoupper($row['Class']),'C');
         $pdf->Ln(5);
         $pdf->SetFont('times','',11);
-        $pdf->Write(15,'Congratulations on your admission into Paradise Model School!');
+        $pdf->Write(15,'Congratulations on your admission into Daglore Model School!');
         $pdf->Ln(5);
         $pdf->Cell(20);
 
 		$pdf->SetFont('times','',12);
 		$pdf->Ln(5);
-		$pdf->Write(15,'You have been offered provisional admission into'. " " .$row['Class'] . " " .'at Paradise Model School for the '.$e.'');
+		$pdf->Write(15,'You have been offered provisional admission into'. " " .$row['Class'] . " " .'at Daglore Model School for the '.$e.'');
         $pdf->Ln(5);
         $pdf->Write(19,'academic session. Your admission should be seen as a unique oppurtunity to be part of the school system that');	
 		$pdf->Ln(8);
@@ -173,13 +175,13 @@ $pdf->SetFont('Arial','',10);
         $pdf->Cell(10,10,'OFFER OF PROVISIONAL ADMISSION INTO'. " " .strtoupper($row['Class']),'C');
         $pdf->Ln(5);
         $pdf->SetFont('times','',11);
-        $pdf->Write(15,'Congratulations on your admission into Paradise Model School!');
+        $pdf->Write(15,'Congratulations on your admission into Daglore Model School!');
         $pdf->Ln(5);
         $pdf->Cell(20);
 
         $pdf->SetFont('times','',12);
         $pdf->Ln(5);
-        $pdf->Write(15,'You have been offered provisional admission into'. " " .$row['Class'] . " " .'at Paradise Model School for the '.$e.'');
+        $pdf->Write(15,'You have been offered provisional admission into'. " " .$row['Class'] . " " .'at Daglore Model School for the '.$e.'');
         $pdf->Ln(5);
         $pdf->Write(19,'academic session. Your admission should be seen as a unique oppurtunity to be part of the school system that'); 
         $pdf->Ln(8);
