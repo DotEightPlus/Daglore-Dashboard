@@ -124,7 +124,7 @@ $_SESSION['ws'] = $row['staffclass'];
                       <a style="color: red;" href="./assedit?id='.$row['id'].'"><br/>Edit</a>';
                       ?>
                                     </td>
-                                    <td><?php echo $row['date'] ?></td>
+                                    <td><?php echo  date('D, M d, Y - h:i:sa', strtotime($row['date'])) ?></td>
 
 
 
