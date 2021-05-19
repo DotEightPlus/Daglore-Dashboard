@@ -72,8 +72,9 @@
                  
  $sql="SELECT * from students WHERE `AdminId` = '".$_SESSION['AdminID']."'";
  $result_set=query($sql);
- while($row= mysqli_fetch_array($result_set))
- {
+ $row= mysqli_fetch_array($result_set);
+
+ $_SESSION['name'] = $row['SurName']." ".$row['Middle Name'];
   ?>
                         <?php echo'
           <img style="width: 60px; height: 60px;" src="https://admin.dagloremodelschool.com.ng/upload/studentDP/'.$row['Passport'].'" class="img-circle elevation-2" alt="Profile Picture">';
@@ -84,9 +85,6 @@
                         <small style="color: white"><?php echo $row['AdminID']; ?></small>
                     </div>
                 </div>
-                <?php
-}
-?>
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"

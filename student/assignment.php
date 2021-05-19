@@ -1,11 +1,11 @@
 <?php include("functions/top.php");
 
 //get staff class
-$sql="SELECT * from staff WHERE `staffid` = '".$_SESSION['staff_id']."'";
+$sql="SELECT * from students WHERE `AdminID` = '".$_SESSION['AdminID']."'";
 $result_set=query($sql);
 $row= mysqli_fetch_array($result_set);
 
-$_SESSION['ws'] = $row['staffclass'];
+$_SESSION['stws'] = $row['Class'];
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -15,12 +15,12 @@ $_SESSION['ws'] = $row['staffclass'];
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Upload Assignment</h1>
+                    <h1 class="m-0 text-dark"> Assignment</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="./">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Upload Result</li>
+                        <li class="breadcrumb-item active">Assignment</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -32,40 +32,10 @@ $_SESSION['ws'] = $row['staffclass'];
 
     <!-- Main content -->
     <section class="content">
-        <!-- right column -->
-        <div class="col-md-12">
-            <!-- general form elements disabled -->
-            <div class="card card-warning">
 
-                <div class="card-body">
-                    <form name="" role="form">
-                        <div class="form-group">
-                            <label>Upload assignment file</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="fileToUpload">
-                                    <label class="custom-file-label" for="fileToUpload">Choose file</label>
-                                </div>
-
-                            </div>
-
-
-                            <p class="text-danger">Make sure you recheck all details typed in before uploading</p>
-
-                            <button type="button" id="uplagn" class="btn float-left btn-danger btn-outline-light">Upload
-                                Assignment</button>
-                    </form>
-                </div>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-            <!-- general form elements disabled -->
-
-        </div>
-        <!--/.col (right) -->
 
         <?php
-        $data = $_SESSION['ws'];
+        $data = $_SESSION['stws'];
  $sql= "SELECT * FROM `assignment` WHERE `class` = '$data'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
@@ -81,13 +51,10 @@ $_SESSION['ws'] = $row['staffclass'];
             <div class="col-md-12">
                 <div class="card card-dark">
                     <div class="card-header">
-                        <h3 class="card-title">Assignment Uploaded</h3>
+                        <h3 class="card-title">Assignment</h3>
 
                         <div class="card-tools">
-                            <button type="button" id="del" data-toggle="modal" data-target="#modal-delete"
-                                data-toggle="tooltip" title="Delete a result" class="btn btn-tool"><i
-                                    class="fas fa-trash"></i>
-                            </button>
+
                             <button type="button" data-toggle="tooltip" title="Maximize" class="btn btn-tool"
                                 data-card-widget="maximize"><i class="fas fa-expand"></i>
                             </button>
@@ -110,6 +77,120 @@ $_SESSION['ws'] = $row['staffclass'];
                             <tbody>
                                 <?php
  $sql= "SELECT * FROM `assignment` WHERE `class` = '$data'";
+ $result_set=query($sql);
+  while($row= mysqli_fetch_array($result_set))
+ {
+  ?>
+                                <tr class="text-center">
+                                    <td><?php echo $row['file'] ?>
+
+                                        <a style="color: red;"
+                                            href="https://staff.dagloremodelschool.com.ng/upload/assignments/<?php echo $row['file'] ?>"><br />Download
+                                            Assignment</a>
+                                    </td>
+                                    <td><?php echo  date('D, M d, Y - h:i:sa', strtotime($row['date'])) ?></td>
+
+
+
+                                </tr>
+                                <?php
+                  }
+                  if(row_count($result_set) == 0) {
+
+  echo "<span style='color:red'>No records found</span>";
+ }
+                  ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </section>
+        <?php
+}
+}
+?>
+
+
+
+        <!-- right column -->
+        <div class="col-md-12">
+            <!-- general form elements disabled -->
+            <div class="card card-warning">
+
+                <div class="card-body">
+                    <form name="" role="form">
+                        <div class="form-group">
+                            <label>Upload your assignment file</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="fileToUpload">
+                                    <label class="custom-file-label" for="fileToUpload">Choose file</label>
+                                </div>
+
+                            </div>
+
+
+                            <p class="text-danger">Make sure you recheck all details before uploading</p>
+
+                            <button type="button" id="uplagn" class="btn float-left btn-danger btn-outline-light">Upload
+                                Assignment</button>
+                    </form>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            <!-- general form elements disabled -->
+
+        </div>
+        <!--/.col (right) -->
+
+
+        <?php
+        $data = $_SESSION['AdminID'];
+ $sql= "SELECT * FROM `upassignment` WHERE `adminid` = '$data'";
+ $result_set=query($sql);
+ while($row= mysqli_fetch_array($result_set))
+ {
+  if(row_count($result_set) == "") {
+            
+          } else {
+          ?>
+
+
+        <section id="preview" class="content">
+            <!-- right column -->
+            <div class="col-md-12">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">Your Uploaded Assignment</h3>
+
+                        <div class="card-tools">
+
+                            <button type="button" data-toggle="tooltip" title="Maximize" class="btn btn-tool"
+                                data-card-widget="maximize"><i class="fas fa-expand"></i>
+                            </button>
+                            <button type="button" data-toggle="tooltip" title="Minimize" class="btn btn-tool"
+                                data-card-widget="collapse"><i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap table-bordered table-striped">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Assignment file</th>
+                                    <th>Date Uploaded</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+  $data = $_SESSION['AdminID'];
+  $sql= "SELECT * FROM `upassignment` WHERE `adminid` = '$data'";
  $result_set=query($sql);
   while($row= mysqli_fetch_array($result_set))
  {

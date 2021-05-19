@@ -75,6 +75,8 @@ $_SESSION['ws'] = $row['staffclass'];
                         <table class="table table-hover text-nowrap table-bordered table-striped">
                             <thead>
                                 <tr class="text-center">
+                                    <th>Name</th>
+                                    <th>Admission Number</th>
                                     <th>Assignment file</th>
                                     <th>Date Uploaded</th>
 
@@ -82,16 +84,19 @@ $_SESSION['ws'] = $row['staffclass'];
                             </thead>
                             <tbody>
                                 <?php
- $sql= "SELECT * FROM `assignment` WHERE `class` = '$data'";
+ $sql= "SELECT * FROM `upassignment` WHERE `class` = '$data'";
  $result_set=query($sql);
   while($row= mysqli_fetch_array($result_set))
  {
   ?>
+
                                 <tr class="text-center">
+                                    <td><?php echo $row['name'] ?></td>
+                                    <td><?php echo $row['adminid'] ?></td>
                                     <td><?php echo $row['file'] ?>
 
                                         <a style="color: red;"
-                                            href="./assedit?id=<?php echo $row['id'] ?>"><br />Edit</a>
+                                            href="https://student.dagloremodelschool.com.ng/upload/assignment/<?php echo $row['file'] ?>"><br />Download</a>
                                     </td>
                                     <td><?php echo  date('D, M d, Y - h:i:sa', strtotime($row['date'])) ?></td>
 
