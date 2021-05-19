@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Daglore Model School | Admin </title>
+    <title>Daglore Model School | Admin Portal</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Daglore Model School | Admin Portal">
-    <meta name="keywords" content="Daglore Model School">
+    <meta name="description" content="Daglore Model School website">
+    <meta name="keywords" content="Daglore Model School, School">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <link rel="icon" href="dist/img/logo.png" type="image/png" />
+    <link rel="icon" href="dist/img/logo.png" type="image/ico" />
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
@@ -62,7 +62,7 @@
             <a href="./" class="brand-link">
                 <img src="dist/img/logo.png" alt="Daglore Model School" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
-                <span class="brand-text font-weight-light">Daglore Model School</span>
+                <span class="brand-text font-weight-light">Daglore</span>
             </a>
 
             <!-- Sidebar -->
@@ -157,7 +157,7 @@
                         </li>
                         <br />
                         <li class="nav-item has-treeview">
-                            <a href="https://icbt.dagloremodelschool.com.ng" class="nav-link">
+                            <a href="https://icbt.Dagloremodelschool.com.ng" class="nav-link">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>
                                     CBT Software

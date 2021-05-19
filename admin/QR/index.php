@@ -69,7 +69,7 @@ if (!isset($_SESSION['code'])) {
     } else {    
     
         //default data
-        QRcode::png('https://student.paradisemodelschool.com.ng/qrnt?id='.$d.'', $filename, $errorCorrectionLevel, $matrixPointSize, 2);    
+        QRcode::png('https://student.dagloremodelschool.com.ng/qrnt?id='.$d.'', $filename, $errorCorrectionLevel, $matrixPointSize, 2);    
         
     }    
         
