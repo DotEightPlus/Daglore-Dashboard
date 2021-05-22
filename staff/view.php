@@ -84,7 +84,7 @@ $_SESSION['ws'] = $row['staffclass'];
                             </thead>
                             <tbody>
                                 <?php
-                                $data = $_SESSION['ws'];
+ $data = $_SESSION['ws'];
  $sql= "SELECT * FROM `upassignment` WHERE `class` = '$data'";
  $result_set=query($sql);
   while($row= mysqli_fetch_array($result_set))
