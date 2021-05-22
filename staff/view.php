@@ -20,7 +20,7 @@ $_SESSION['ws'] = $row['staffclass'];
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="./">Dashboard</a></li>
-                        <li class="breadcrumb-item active">View Uploaded Result</li>
+                        <li class="breadcrumb-item active">View Uploaded Assignment</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -42,7 +42,7 @@ $_SESSION['ws'] = $row['staffclass'];
  {
   if(row_count($result_set) == "") {
 
-    echo 'Assignment Uploaded';
+    echo ' ';
 
             
           } else {
@@ -84,6 +84,7 @@ $_SESSION['ws'] = $row['staffclass'];
                             </thead>
                             <tbody>
                                 <?php
+                                $data = $_SESSION['ws'];
  $sql= "SELECT * FROM `upassignment` WHERE `class` = '$data'";
  $result_set=query($sql);
   while($row= mysqli_fetch_array($result_set))
@@ -105,7 +106,7 @@ $_SESSION['ws'] = $row['staffclass'];
                                 </tr>
                                 <?php
                   }
-                  if(row_count($result_set) == 0) {
+                  if(row_count($result_set) == " ") {
 
   echo "<span style='color:red'>No records found</span>";
  }
