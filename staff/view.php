@@ -29,99 +29,76 @@ $_SESSION['ws'] = $row['staffclass'];
     <!-- /.content-header -->
 
 
+    <section id="preview" class="content">
+        <!-- right column -->
+        <div class="col-md-12">
+            <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title">Assignment Uploaded</h3>
 
-    <!-- Main content -->
-    <section class="content">
-
-
-        <?php
-        $data = $_SESSION['ws'];
- $sql= "SELECT * FROM `upassignment` WHERE `class` = '$data'";
- $result_set = query($sql);
- while($row = mysqli_fetch_array($result_set))
- {
-  if(row_count($result_set) == "") {
-
-    echo ' ';
-
-            
-          } else {
-          ?>
-
-
-        <section id="preview" class="content">
-            <!-- right column -->
-            <div class="col-md-12">
-                <div class="card card-dark">
-                    <div class="card-header">
-                        <h3 class="card-title">Assignment Uploaded</h3>
-
-                        <div class="card-tools">
-                            <button type="button" id="del" data-toggle="modal" data-target="#modal-delete"
-                                data-toggle="tooltip" title="Delete a result" class="btn btn-tool"><i
-                                    class="fas fa-trash"></i>
-                            </button>
-                            <button type="button" data-toggle="tooltip" title="Maximize" class="btn btn-tool"
-                                data-card-widget="maximize"><i class="fas fa-expand"></i>
-                            </button>
-                            <button type="button" data-toggle="tooltip" title="Minimize" class="btn btn-tool"
-                                data-card-widget="collapse"><i class="fas fa-minus"></i>
-                            </button>
-                        </div>
+                    <div class="card-tools">
+                        <button type="button" id="del" data-toggle="modal" data-target="#modal-delete"
+                            data-toggle="tooltip" title="Delete a result" class="btn btn-tool"><i
+                                class="fas fa-trash"></i>
+                        </button>
+                        <button type="button" data-toggle="tooltip" title="Maximize" class="btn btn-tool"
+                            data-card-widget="maximize"><i class="fas fa-expand"></i>
+                        </button>
+                        <button type="button" data-toggle="tooltip" title="Minimize" class="btn btn-tool"
+                            data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
                     </div>
-                    <!-- /.card-header -->
-                    <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-hover text-nowrap table-bordered table-striped">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>Name</th>
-                                    <th>Admission Number</th>
-                                    <th>Assignment file</th>
-                                    <th>Date Uploaded</th>
+                </div>
+                <!-- /.card-header -->
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap table-bordered table-striped">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Name</th>
+                                <th>Admission Number</th>
+                                <th>Assignment file</th>
+                                <th>Date Uploaded</th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
  $data = $_SESSION['ws'];
  $sql= "SELECT * FROM `upassignment` WHERE `class` = '$data'";
  $result_set=query($sql);
+ 
+ if(row_count($result_set) == '') {
+
+    echo "No records found";
+ } else {
   while($row= mysqli_fetch_array($result_set))
  {
   ?>
 
-                                <tr class="text-center">
-                                    <td><?php echo $row['name'] ?></td>
-                                    <td><?php echo $row['adminid'] ?></td>
-                                    <td><?php echo $row['file'] ?>
+                            <tr class="text-center">
+                                <td><?php echo $row['name'] ?></td>
+                                <td><?php echo $row['adminid'] ?></td>
+                                <td><?php echo $row['file'] ?>
 
-                                        <a style="color: red;"
-                                            href="https://student.dagloremodelschool.com.ng/upload/assignment/<?php echo $row['file'] ?>"><br />Download</a>
-                                    </td>
-                                    <td><?php echo  date('D, M d, Y - h:i:sa', strtotime($row['date'])) ?></td>
+                                    <a style="color: red;"
+                                        href="https://student.dagloremodelschool.com.ng/upload/assignment/<?php echo $row['file'] ?>"><br />Download</a>
+                                </td>
+                                <td><?php echo  date('D, M d, Y - h:i:sa', strtotime($row['date'])) ?></td>
 
 
 
-                                </tr>
-                                <?php
-                  }
-                  if(row_count($result_set) == " ") {
-
-  echo "<span style='color:red'>No records found</span>";
+                            </tr>
+                            <?php
  }
+                  }
                   ?>
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- /.card -->
             </div>
-        </section>
-        <?php
-}
-}
-?>
+            <!-- /.card -->
+        </div>
 
     </section>
     <!-- /.content -->
