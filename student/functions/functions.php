@@ -300,7 +300,7 @@ if (!empty($_FILES["assfile"]["name"])) {
 ///sql update product image
 function img_prod($target_file) {
 
-$class    = $_SESSION['ws'];
+$class    = $_SESSION['stws'];
 $date     = date("Y-m-d h:i:sa");
 $name     = $_SESSION['name'];
 $admin    = $_SESSION['AdminID'];
