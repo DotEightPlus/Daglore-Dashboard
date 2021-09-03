@@ -607,7 +607,7 @@ if (!empty($_FILES["assfile"]["name"])) {
 	} else {
 
 	// Allow certain file formats
-	if($imageFileType != "docx" && $imageFileType != "pdf" && $imageFileType != "doc") {
+	if($imageFileType != "docx" && $imageFileType != "pdf" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "doc") {
 		echo "Sorry, only document files are allowed.";
 		$uploadOk = 0;
 	} else {
@@ -666,7 +666,7 @@ if (!empty($_FILES["fle"]["name"])) {
 	} else {
 
 	// Allow certain file formats
-	if($imageFileType != "docx" && $imageFileType != "pdf" && $imageFileType != "doc") {
+	if($imageFileType != "docx" && $imageFileType != "pdf" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "doc") {
 		echo "Sorry, only document files are allowed.";
 		$uploadOk = 0;
 	} else {
