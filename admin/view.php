@@ -6,87 +6,90 @@ $row = mysqli_fetch_array($res);
  ?>
 
 <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">View Students <sup><span class="badge badge-info right"><?php echo $row['ts']; ?></span></sup></h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="./">Dashboard</a></li>
-              <li class="breadcrumb-item active">View Students</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">View Students <sup><span
+                                class="badge badge-info right"><?php echo $row['ts']; ?></span></sup></h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="./">Dashboard</a></li>
+                        <li class="breadcrumb-item active">View Students</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
 
- <!-- Main content -->
+    <!-- Main content -->
     <section class="content">
-          <!-- right column -->
-          <div class="col-md-12">
+        <!-- right column -->
+        <div class="col-md-12">
             <!-- general form elements disabled -->
             <div class="card card-warning">
-              <div class="card-header">
-                <h3 class="card-title"></h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <form name="printres" role="form"> 
+                <div class="card-header">
+                    <h3 class="card-title"></h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <form name="printres" role="form">
 
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Select a Class .:</label>
-                        <select name="ressbj" id="ressbj" class="form-control">
-                          <option name="class" id="ressbj"></option>
-                          <option name="class" id="ressbj">Kindergarten</option>
-                          <option name="class" id="ressbj">Nursery</option>
-                          <option name="class" id="ressbj">Basic 1</option>
-                          <option name="class" id="ressbj">Basic 2</option>
-                          <option name="class" id="ressbj">Basic 3</option>
-                          <option name="class" id="ressbj">Basic 4</option>
-                          <option name="class" id="ressbj">Basic 5-6</option>
-                          <option name="class" id="ressbj">J.S.S 1</option>
-                          <option name="class" id="ressbj">J.S.S 2</option>
-                          <option name="class" id="ressbj">J.S.S 3</option>
-                          <option name="class" id="ressbj">S.S.S 1</option>
-                          <option name="class" id="ressbj">S.S.S 2</option>
-                          <option name="class" id="ressbj">S.S.S 3</option>
-                        </select>
-                      </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Select a Class .:</label>
+                            <select name="ressbj" id="ressbj" class="form-control">
+                                <option name="class" id="ressbj"></option>
+                                <option name="class" id="ressbj">Pre-School</option>
+                                <option name="class" id="ressbj">Reception</option>
+                                <option name="class" id="ressbj">Nursery 1</option>
+                                <option name="class" id="ressbj">Nursery 2</option>
+                                <option name="class" id="ressbj">Basic 1</option>
+                                <option name="class" id="ressbj">Basic 2</option>
+                                <option name="class" id="ressbj">Basic 3</option>
+                                <option name="class" id="ressbj">Basic 4</option>
+                                <option name="class" id="ressbj">Basic 5-6</option>
+                                <option name="class" id="ressbj">J.S.S 1</option>
+                                <option name="class" id="ressbj">J.S.S 2</option>
+                                <option name="class" id="ressbj">J.S.S 3</option>
+                                <option name="class" id="ressbj">S.S.S 1</option>
+                                <option name="class" id="ressbj">S.S.S 2</option>
+                                <option name="class" id="ressbj">S.S.S 3</option>
+                            </select>
+                        </div>
 
-                </form>
-              </div>
-              <!-- /.card-body -->
+                    </form>
+                </div>
+                <!-- /.card-body -->
 
             </div>
             <!-- /.card -->
             <!-- general form elements disabled -->
-           
-          </div>
-            <section id="displayres" class="content">
 
-      </section>
-          <!--/.col (right) -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+        <section id="displayres" class="content">
 
-      </div>
-  <!-- /.content-wrapper -->
- <?php include("include/footer.php"); ?>
+        </section>
+        <!--/.col (right) -->
+</div>
+<!-- /.row -->
+</div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
+</div>
+<!-- /.content-wrapper -->
+<?php include("include/footer.php"); ?>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+</aside>
+<!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -97,7 +100,7 @@ $row = mysqli_fetch_array($res);
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-  $.widget.bridge('uibutton', $.ui.button)
+$.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -125,8 +128,8 @@ $row = mysqli_fetch_array($res);
 <script src="dist/js/pages/dashboard.js"></script>
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function () {
-  bsCustomFileInput.init();
+$(document).ready(function() {
+    bsCustomFileInput.init();
 });
 </script>
 <script src="ajax.js"></script>
@@ -135,49 +138,46 @@ $(document).ready(function () {
 <!-- Toastr -->
 <script src="plugins/toastr/toastr.min.js"></script>
 <script type="text/javascript">
-  $(function() {
+$(function() {
     const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
     });
-  });
-
+});
 </script>
 
-  <script>
-    //filter
-    document.getElementById('ressbj').addEventListener('click', getResult);
+<script>
+//filter
+document.getElementById('ressbj').addEventListener('click', getResult);
 
-    function getResult()
-    {
-      var x = document.forms["printres"]["ressbj"].value;
-     
-      if (x == null || x == "") {
-    
-            return false;
+function getResult() {
+    var x = document.forms["printres"]["ressbj"].value;
+
+    if (x == null || x == "") {
+
+        return false;
     }
-      var xhr = new  XMLHttpRequest();
-      $(toastr.error('Laoding... Please wait'));
-      xhr.open('GET', './class?id='+x, true);
+    var xhr = new XMLHttpRequest();
+    $(toastr.error('Laoding... Please wait'));
+    xhr.open('GET', './class?id=' + x, true);
 
-      xhr.onload = function ()
-      {
+    xhr.onload = function() {
         if (xhr.status == 200) {
-          //document.write(this.responseText);
-          document.getElementById('displayres').innerHTML=xhr.responseText;
+            //document.write(this.responseText);
+            document.getElementById('displayres').innerHTML = xhr.responseText;
         } else {
 
-          $(toastr.error('No file found'));
+            $(toastr.error('No file found'));
         }
-      }
-
-      xhr.send();
     }
 
-  </script>
+    xhr.send();
+}
+</script>
 
 
 </body>
+
 </html>

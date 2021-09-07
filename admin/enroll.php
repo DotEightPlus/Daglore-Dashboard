@@ -137,7 +137,6 @@ include("functions/top.php");
                                         <option name="class" id="class">Reception</option>
                                         <option name="class" id="class">Nursery 1</option>
                                         <option name="class" id="class">Nursery 2</option>
-                                        <option name="class" id="class">Nursery</option>
                                         <option name="class" id="class">Basic 1</option>
                                         <option name="class" id="class">Basic 2</option>
                                         <option name="class" id="class">Basic 3</option>
