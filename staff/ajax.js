@@ -154,18 +154,18 @@ $(document).ready(function () {
               if (exc == null || exc == "") {
                 $(toastr.error("Kindly input assignment score"));
               } else {
-                if (exc > 15) {
+                if (exc > 10) {
                   $(
                     toastr.error(
-                      "Class exercise score can`t be greater than 10"
+                      "Assignmet score can`t be greater than 10"
                     )
                   );
                 } else {
                   if (exam == null || exam == "") {
                     $(toastr.error("Exam can`t be empty"));
                   } else {
-                    if (exam > 70) {
-                      $(toastr.error("Exam score can`t be greater than 70"));
+                    if (exam > 60) {
+                      $(toastr.error("Exam score can`t be greater than 60"));
                     } else {
                       if (position == null || position == "") {
                         $(toastr.error("Position in class field is empty"));
