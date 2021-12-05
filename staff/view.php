@@ -81,8 +81,8 @@ $_SESSION['ws'] = $row['staffclass'];
                                 <td><?php echo $row['adminid'] ?></td>
                                 <td><?php echo $row['file'] ?>
 
-                                    <a style="color: red;"
-                                        href="https://student.dagloremodelschool.com.ng/upload/assignment/<?php echo $row['file'] ?>"><br />Download</a>
+                                    <a style="color: red;" target="_blank"
+                                        href="<?php echo $call['stud'] ?>/upload/assignment/<?php echo $row['file'] ?>"><br />Download</a>
                                 </td>
                                 <td><?php echo  date('D, M d, Y - h:i:sa', strtotime($row['date'])) ?></td>
 

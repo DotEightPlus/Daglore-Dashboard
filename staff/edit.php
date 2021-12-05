@@ -1,6 +1,6 @@
 <?php include("functions/top.php"); ?>
 <?php
-if(!isset($_GET['id']) && !isset($_GET['cls']) && !isset($_GET['tm']) && !isset($_GET['sbj'])) {
+if(!isset($_GET['id']) && !isset($_GET['cls']) && !isset($_GET['tm']) && !isset($_GET['sbj']) && isset($_GET['ses'])) {
   header("location: ../opps");
 }
 
@@ -8,6 +8,7 @@ $data = $_GET['id'];
 $cls  = $_GET['cls'];
 $term = $_GET['tm'];
 $sbj  = $_GET['sbj'];
+$ses  = $_GET['ses'];
 
 
 //get student name from admission no.
@@ -17,7 +18,7 @@ $rower = mysqli_fetch_array($res);
 
 
 //get previous data
-$sql = "SELECT * FROM result WHERE `class` = '$cls' AND `term` = '$term' AND `subject` = '$sbj' AND `admno` = '$data'";
+$sql = "SELECT * FROM result WHERE `class` = '$cls' AND `term` = '$term' AND `subject` = '$sbj' AND `admno` = '$data' AND `ses` = '$ses'";
 $resu = query($sql);
 $row  = mysqli_fetch_array($resu);
 
@@ -32,22 +33,22 @@ $hrt = $wsa['tot'];
 ?>
 
 <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Edit Result </h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="./">Dashboard</a></li>
-              <li class="breadcrumb-item active">Upload Result</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Edit Result </h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="./">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Upload Result</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
@@ -55,57 +56,66 @@ $hrt = $wsa['tot'];
 
 
 
- <!-- Main content -->
+    <!-- Main content -->
     <section class="content">
-          <!-- right column -->
-          <div class="col-md-12">
+        <!-- right column -->
+        <div class="col-md-12">
             <!-- general form elements disabled -->
             <div class="card card-warning">
-              <div class="card-header">
-                <h3 class="card-title">Edit Result <?php echo $sbj." ".$term ?> Result for <?php echo $rower['SurName']." ".$rower['Middle Name']." ".$rower['Last Name'] ?></h3>
-                 <div class="card-tools">
-                    <button type="button" data-toggle="tooltip" title="Minimize" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
+                <div class="card-header">
+                    <h3 class="card-title">Edit Result <?php echo $sbj." ".$term ?> Result for
+                        <?php echo $rower['SurName']." ".$rower['Middle Name']." ".$rower['Last Name'] ?></h3>
+                    <div class="card-tools">
+                        <button type="button" data-toggle="tooltip" title="Minimize" class="btn btn-tool"
+                            data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                    </div>
                 </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <form name="uploadQuestionaire" role="form">
-                   <div class="form-group">
-                    <label for="exampleInputEmail1">Input Subject .:</label>
-                    <input type="text" value="<?php echo $sbj; ?>" class="form-control" id="stsbj" placeholder="Mathematics, English, Chemistry" disabled>
-                  </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <form name="uploadQuestionaire" role="form">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Input Subject .:</label>
+                            <input type="text" value="<?php echo $sbj; ?>" class="form-control" id="stsbj"
+                                placeholder="Mathematics, English, Chemistry">
+                        </div>
 
-              
-                  <div class="form-group">
-                  <div class="row">
-                  <div class="form-group col-md-2">
-                    <label for="exampleInputEmail1">Test(10) .:</label>
-                    <input type="number" name="date" id="test" value="<?php echo $row['test']; ?>" placeholder="Test(10)" class="form-control">
-                  </div>
-                  <!-- /.input group -->
-                   <div class="form-group col-md-2">
-                    <label for="exampleInputEmail1">Assignment(10).:</label>
-                    <input type="number" name="month" id="ass"  value="<?php echo $row['ass']; ?>" placeholder="Assignment(10)" class="form-control">
-                  </div>
-                  <!-- /.input group -->
-                   <div class="for-group col-md-2">
-                    <label for="exampleInputEmail1">Class Exercise(10).:</label>
-                    <input type="number" name="year" id="exc"  value="<?php echo $row['classex']; ?>" placeholder="Exercise(10)" class="form-control">
-                  </div>
-                  <!-- /.input group -->
-                   <div class="form-group col-md-2">
-                     <label for="exampleInputEmail1">Exam(70) .:</label>
-                    <input type="number" name="year" id="exam" min="1" max="70"  value="<?php echo $row['exam']; ?>" placeholder="Exam(70)" class="form-control">
-                  </div>
-                  <!-- /.input group -->
-                 <div class="form-group col-md-2">
-                   <label for="exampleInputEmail1">Position in Class .:</label>
-                  <select id="position" class="form-control">
-                    <option id="position">1st</option>
-                    <option id="position">2nd</option>
-                    <option id="position">3rd</option>
-                    <?php
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label for="exampleInputEmail1">CAT 1(10) .:</label>
+                                    <input type="number" name="date" id="test" value="<?php echo $row['test']; ?>"
+                                        placeholder="Test(10)" class="form-control">
+                                </div>
+                                <!-- /.input group -->
+                                <div class="form-group col-md-2">
+                                    <label for="exampleInputEmail1">CAT 2(10).:</label>
+                                    <input type="number" name="month" id="ass" value="<?php echo $row['ass']; ?>"
+                                        placeholder="Assignment(10)" class="form-control">
+                                </div>
+                                <!-- /.input group -->
+                                <div class="for-group col-md-2">
+                                    <label for="exampleInputEmail1">CAT 3(10).:</label>
+                                    <input type="number" name="year" id="exc" value="<?php echo $row['classex']; ?>"
+                                        placeholder="Exercise(10)" class="form-control">
+                                </div>
+                                <!-- /.input group -->
+                                <div class="form-group col-md-2">
+                                    <label for="exampleInputEmail1">Exam(70) .:</label>
+                                    <input type="number" name="year" id="exam" min="1" max="70"
+                                        value="<?php echo $row['exam']; ?>" placeholder="Exam(70)" class="form-control">
+                                </div>
+                                <!-- /.input group -->
+                                <div class="form-group col-md-2">
+                                    <label for="exampleInputEmail1">Position in Class .:</label>
+                                    <input type="text" name="year" id="position" placeholder="1st, 2nd, 3rd e.t.c"
+                                        class="form-control" value="<?php echo $row['position']; ?>">
+                                    <!--- <select id="position" class="form-control">
+                                        <option id="position">1st</option>
+                                        <option id="position">2nd</option>
+                                        <option id="position">3rd</option>
+                                        <?php
                         $x = 4;
 
                         while($x <= $hrt) {
@@ -119,82 +129,88 @@ $hrt = $wsa['tot'];
                           $x++;
                       }
                       ?>
-                  </select>
-                    
-                  </div>
-                                   
+                                    </select>--->
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" value="<?php echo $data; ?>" id="admis" hidden>
+                            <input type="text" class="form-control"
+                                value="<?php echo $rower['SurName']." ".$rower['Middle Name']." ".$rower['Last Name'] ?>"
+                                id="name" hidden>
+                            <input type="text" class="form-control" value="<?php echo $cls; ?>" id="cla" hidden>
+                            <input type="text" class="form-control" value="<?php echo $term; ?>" id="term" hidden>
+                            <input type="text" class="form-control" value="<?php echo $ses; ?>" id="ses" hidden>
+                        </div>
+
+                        <p class="text-danger">Make sure you recheck all details typed in before uploading</p>
+
+                        <button type="button" id="upressl" class="btn float-left btn-danger btn-outline-light">Update
+                            Result</button>
+
+                    </form>
                 </div>
-              </div>
-
-                    
-
-                   <div class="form-group">
-                    <input type="text" class="form-control" value="<?php echo $data; ?>" id="admis" hidden>
-                     <input type="text" class="form-control" value="<?php echo $rower['SurName']." ".$rower['Middle Name']." ".$rower['Last Name'] ?>" id="name" hidden>
-                    <input type="text" class="form-control" value="<?php echo $cls; ?>" id="cla" hidden>
-                     <input type="text" class="form-control" value="<?php echo $term; ?>" id="term" hidden>
-                  </div>
-
-                  <p class="text-danger">Make sure you recheck all details typed in before uploading</p>
-                    
-                   <button type="button" id="upressl" class="btn float-left btn-danger btn-outline-light">Update Result</button>
-                   
-                </form>
-              </div>
-              <!-- /.card-body -->
+                <!-- /.card-body -->
             </div>
             <!-- /.card -->
             <!-- general form elements disabled -->
-           
-          </div>
-          <!--/.col (right) -->
+
+        </div>
+        <!--/.col (right) -->
     </section>
-    <!-- /.content -->   
+    <!-- /.content -->
 
 
-      </div>
-  <!-- /.content-wrapper -->
- <?php include("include/footer.php"); ?>
+</div>
+<!-- /.content-wrapper -->
+<?php include("include/footer.php"); ?>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+</aside>
+<!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
 
 
 
- <!---modal reset--->
+<!---modal reset--->
 <div class="modal fade" id="modal-reset">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content bg-danger">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-danger">
             <div class="modal-header">
-              <h4 class="modal-title">Reset <?php echo $rower['SurName']." ".$rower['Middle Name']." ".$rower['Last Name']. " ".$term ?> Result(s)</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Reset
+                    <?php echo $rower['SurName']." ".$rower['Middle Name']." ".$rower['Last Name']. " ".$term ?>
+                    Result(s)</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-               <div class="card-body">
-                <p class="text-grey">Resetting will clear off all uploaded result(s) for the above named person.</p>
-                 <p class="text-grey">Are you sure you want to continue?</p>
-                 <input type="text" value="<?php echo $data; ?>" id="subb" hidden>
-                  <input type="text" value="<?php echo $term; ?>" id="trm" hidden>
-                   <input type="text" value="<?php echo $cls; ?>" id="ccs" hidden>
-              </div>
+                <div class="card-body">
+                    <p class="text-grey">Resetting will clear off all uploaded result(s) for the above named person.</p>
+                    <p class="text-grey">Are you sure you want to continue?</p>
+                    <input type="text" value="<?php echo $data; ?>" id="subb" hidden>
+                    <input type="text" value="<?php echo $term; ?>" id="trm" hidden>
+                    <input type="text" value="<?php echo $cls; ?>" id="ccs" hidden>
+                </div>
             </div>
             <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-outline-light" data-dismiss="modal">No! Cancel</button>
-              <button type="button" id="reseted" class="btn btn-outline-light">Yes! Continue</button>
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">No! Cancel</button>
+                <button type="button" id="reseted" class="btn btn-outline-light">Yes! Continue</button>
             </div>
-          </div>
-          <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
@@ -202,7 +218,7 @@ $hrt = $wsa['tot'];
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-  $.widget.bridge('uibutton', $.ui.button)
+$.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -237,8 +253,8 @@ $hrt = $wsa['tot'];
 <script src="dist/js/demo.js"></script>
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function () {
-  bsCustomFileInput.init();
+$(document).ready(function() {
+    bsCustomFileInput.init();
 });
 </script>
 <script src="ajax.js"></script>
@@ -247,19 +263,19 @@ $(document).ready(function () {
 <!-- Toastr -->
 <script src="plugins/toastr/toastr.min.js"></script>
 <script type="text/javascript">
-  $(function() {
+$(function() {
     const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
     });
-  });
-
+});
 </script>
 
 
 
 <!-- page script -->
 </body>
+
 </html>

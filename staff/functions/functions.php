@@ -50,6 +50,41 @@ DELIMITER;
 
 }
 
+function staffattend() {
+
+	$errors = [];
+
+	
+
+	if(isset($_POST['submit'])) {
+
+			$password   	 = md5($_POST['password']);
+			$idd  	 		 = $_POST['iddler'];
+
+			if(!empty($errors)) {
+
+				foreach ($errors as $error) {
+			
+	                echo validation_errors($error); 
+
+				}
+
+			} else {
+
+				if(log_user($password)) {
+					$_SESSION['secured'] = $password;
+					header("location: ./seen?id=$idd");
+
+				} else {
+
+					echo validation_errors("Wrong Password");
+				}
+			} 
+
+		}
+
+} //function
+
 
 /************************validate user login functions**********/
 
@@ -121,7 +156,7 @@ if(row_count($result) == 1) {
 
 
 //---------------- upload first term result subjects ----------///
-if (isset($_POST['stsbj']) && isset($_POST['test']) && isset($_POST['ass']) && isset($_POST['exc']) && isset($_POST['exam']) && isset($_POST['position']) && isset($_POST['name']) && isset($_POST['admis']) && isset($_POST['cla']) && isset($_POST['term'])) {
+if (isset($_POST['stsbj']) && isset($_POST['test']) && isset($_POST['ass']) && isset($_POST['exc']) && isset($_POST['exam']) && isset($_POST['position']) && isset($_POST['name']) && isset($_POST['admis']) && isset($_POST['cla']) && isset($_POST['term']) && isset($_POST['ses'])) {
 	
 
 	$stbj 		= clean($_POST['stsbj']);
@@ -134,14 +169,19 @@ if (isset($_POST['stsbj']) && isset($_POST['test']) && isset($_POST['ass']) && i
 	$admis 		= clean($_POST['admis']);
 	$cla 		= clean($_POST['cla']);
 	$term 		= clean($_POST['term']);
+	$ses        = clean($_POST['ses']);
 
-	$sql = "SELECT * FROM result WHERE `subject` = '$stbj' AND `class` = '$cla' AND `term` = '$term' WHERE `admno` = '$admis'";
+	
+
+
+	$sql = "SELECT * FROM result WHERE `subject` = '$stbj' AND `class` = '$cla' AND `term` = '$term' AND `ses` = '$ses' AND `admno` = '$admis'";
 	$res = query($sql);
+	
 	if(row_count($res) == 1) {
 		echo "$stbj ".$term." result for ".$name."  has been uploaded before.";
 	} else {
 
-
+		
 	$total      = $test + $ass + $exc + $exam;
 
 	if ($total <= 39) {
@@ -206,8 +246,8 @@ if (isset($_POST['stsbj']) && isset($_POST['test']) && isset($_POST['ass']) && i
 	}
 	}
 
-$sql2 = "INSERT INTO result(`sn`, `class`, `admno`, `name`, `subject`, `test`, `ass`, `classex`, `exam`, `total`, `position`, `grade`, `remark`, `term`)";
-$sql2.= " VALUES('1', '$cla', '$admis', '$name', '$stbj', '$test', '$ass', '$exc', '$exam', '$total', '$position', '$grade', '$remark', '$term')";
+$sql2 = "INSERT INTO result(`sn`, `class`, `admno`, `name`, `subject`, `test`, `ass`, `classex`, `exam`, `total`, `position`, `grade`, `remark`, `term`, `ses`)";
+$sql2.= " VALUES('1', '$cla', '$admis', '$name', '$stbj', '$test', '$ass', '$exc', '$exam', '$total', '$position', '$grade', '$remark', '$term', '$ses')";
 $result = query($sql2);
 
 if ($term == "1st Term") {
@@ -216,8 +256,8 @@ if ($term == "1st Term") {
 		$sndscore = 0;
 		$tscore = 0;
 
-		$ssl = "INSERT INTO score(`class`, `admno`, `subject`, `fscore`, `sndscore`, `tscore`)";
-		$ssl.= "VALUES('$cla', '$admis', '$stbj', '$fscore', '$sndscore', '$tscore')";
+		$ssl = "INSERT INTO score(`class`, `admno`, `subject`, `fscore`, `sndscore`, `tscore`, `ses`)";
+		$ssl.= "VALUES('$cla', '$admis', '$stbj', '$fscore', '$sndscore', '$tscore', '$ses')";
 		$qws = query($ssl);
 
 	} else {
@@ -226,7 +266,7 @@ if ($term == "1st Term") {
 		
 		$sndscore =  $total;
 
-		$ssl = "UPDATE score SET `sndscore` = '$sndscore'  WHERE `subject` = '$stbj' AND `class` = '$cla'";	
+		$ssl = "UPDATE score SET `sndscore` = '$sndscore'  WHERE `subject` = '$stbj' AND `class` = '$cla' AND `ses` = '$ses'";	
 		$qws = query($ssl);
 
 
@@ -236,7 +276,7 @@ if ($term == "1st Term") {
 		
 		$tscore =  $total;
 
-		$ssl = "UPDATE score SET `tscore` = '$tscore'  WHERE `subject` = '$stbj' AND `class` = '$cla'";	
+		$ssl = "UPDATE score SET `tscore` = '$tscore'  WHERE `subject` = '$stbj' AND `class` = '$cla' AND `ses` = '$ses'";	
 		$qws = query($ssl);
 
 
@@ -267,7 +307,7 @@ if(isset($_SESSION['upupl'])) {
 $_SESSION['upup'] = "Result uploaded sucessfully";
 
 echo 'Loading.. Please wait';	
-echo '<script>window.location.href = "./studres?id='.$admis.'&cls='.$cla.'&term='.$term.'"</script>';
+echo '<script>window.location.href = "./studres?id='.$admis.'&cls='.$cla.'&term='.$term.'&ses='.$ses.'"</script>';
 }
 }
 
@@ -279,17 +319,18 @@ function scores($total) {
 }
 
 //--------------------- reset results -------------------//
-if (isset($_POST['adm']) && isset($_POST['trm']) && isset($_POST['ccs'])) {
+if (isset($_POST['adm']) && isset($_POST['trm']) && isset($_POST['ccs']) && isset($_POST['ses'])) {
 	
 	$adm     = $_POST['adm'];
 	$trm     = $_POST['trm'];
 	$ccs     = $_POST['ccs'];
+	$ses     = $_POST['ses'];
 
 
-	$sql = "DELETE FROM result WHERE `admno` = '$adm' AND `term` = '$trm' AND `class` = '$ccs'";
+	$sql = "DELETE FROM result WHERE `admno` = '$adm' AND `term` = '$trm' AND `class` = '$ccs' AND `ses` = '$ses'";
 	$res = query($sql);
 
-	if(isset($_SESSION['del'])) {
+if(isset($_SESSION['del'])) {
   unset($_SESSION['del']);
  
 }
@@ -312,13 +353,13 @@ if(isset($_SESSION['upupl'])) {
 	$_SESSION['res'] = "Result resetted sucessfully";
 
 	echo 'Loading.. Please wait';	
-    echo '<script>window.location.href = "./studres?id='.$adm.'&cls='.$ccs.'&term='.$trm.'"</script>';
+    echo '<script>window.location.href = "./studres?id='.$adm.'&cls='.$ccs.'&term='.$trm.'&ses='.$ses.'"</script>';
 }
 
 
 
 //----------------update upload first term result subjects ----------///
-if (isset($_POST['stsbj']) && isset($_POST['test']) && isset($_POST['ass']) && isset($_POST['exc']) && isset($_POST['exam']) && isset($_POST['position']) && isset($_POST['name']) && isset($_POST['admis']) && isset($_POST['cla']) && isset($_POST['tms'])) {
+if (isset($_POST['stsbj']) && isset($_POST['test']) && isset($_POST['ass']) && isset($_POST['exc']) && isset($_POST['exam']) && isset($_POST['position']) && isset($_POST['name']) && isset($_POST['admis']) && isset($_POST['cla']) && isset($_POST['tms']) && isset($_POST['ses'])) {
 	
 
 	$stbj 		= clean($_POST['stsbj']);
@@ -331,6 +372,7 @@ if (isset($_POST['stsbj']) && isset($_POST['test']) && isset($_POST['ass']) && i
 	$admis 		= clean($_POST['admis']);
 	$cla 		= clean($_POST['cla']);
 	$term 		= clean($_POST['tms']);
+	$ses 		= clean($_POST['ses']);
 
 	
 	$total      = $test + $ass + $exc + $exam;
@@ -399,7 +441,7 @@ if (isset($_POST['stsbj']) && isset($_POST['test']) && isset($_POST['ass']) && i
 	
 
 
-$sql2 = "UPDATE result SET `test` = '$test', `ass` = '$ass', `classex` = '$exc', `exam` = '$exam', `total` = '$total', `position` = '$position', `grade` = '$grade', `remark` = '$remark', `term` = '$term' WHERE `class` = '$cla' AND `admno` = '$admis' AND `name` = '$name' AND `subject` = '$stbj'";
+$sql2 = "UPDATE result SET `test` = '$test', `ass` = '$ass', `classex` = '$exc', `exam` = '$exam', `total` = '$total', `position` = '$position', `grade` = '$grade', `remark` = '$remark', `term` = '$term' WHERE `class` = '$cla' AND `admno` = '$admis' AND `name` = '$name' AND `subject` = '$stbj' AND `ses` = '$ses'";
 $result = query($sql2);
 
 if ($term == "1st Term") {
@@ -408,8 +450,8 @@ if ($term == "1st Term") {
 		$sndscore = 0;
 		$tscore = 0;
 
-		$ssl = "INSERT INTO score(`class`, `admno`, `subject`, `fscore`, `sndscore`, `tscore`, `term`)";
-		$ssl.= "VALUES('$cla', '$admis', '$stbj', '$fscore', '$sndscore', '$tscore', '$term')";
+		$ssl = "INSERT INTO score(`class`, `admno`, `subject`, `fscore`, `sndscore`, `tscore`, `term`, `ses`)";
+		$ssl.= "VALUES('$cla', '$admis', '$stbj', '$fscore', '$sndscore', '$tscore', '$term', '$ses')";
 		$qws = query($ssl);
 
 	} else {
@@ -418,7 +460,7 @@ if ($term == "1st Term") {
 		
 		$sndscore =  $total;
 
-		$ssl = "UPDATE score SET `sndscore` = '$sndscore'  WHERE `subject` = '$stbj' AND `class` = '$cla' AND `term` = '$term'";	
+		$ssl = "UPDATE score SET `sndscore` = '$sndscore'  WHERE `subject` = '$stbj' AND `class` = '$cla' AND `term` = '$term' AND `ses` = '$ses'";	
 		$qws = query($ssl);
 
 
@@ -428,7 +470,7 @@ if ($term == "1st Term") {
 		
 		$tscore =  $total;
 
-		$ssl = "UPDATE score SET `tscore` = '$tscore'  WHERE `subject` = '$stbj' AND `class` = '$cla' AND `term` = '$term'";	
+		$ssl = "UPDATE score SET `tscore` = '$tscore'  WHERE `subject` = '$stbj' AND `class` = '$cla' AND `term` = '$term' AND `ses` = '$ses'";	
 		$qws = query($ssl);
 
 
@@ -459,7 +501,7 @@ if(isset($_SESSION['upup'])) {
 $_SESSION['upupl'] = "Result updated sucessfully";
 
 echo 'Loading.. Please wait';	
-echo '<script>window.location.href = "./studres?id='.$admis.'&cls='.$cla.'&term='.$term.'"</script>';
+echo '<script>window.location.href = "./studres?id='.$admis.'&cls='.$cla.'&term='.$term.'&ses='.$ses.'"</script>';
 }
 
 
@@ -467,21 +509,22 @@ echo '<script>window.location.href = "./studres?id='.$admis.'&cls='.$cla.'&term=
 
 
 //--------------------- delete subject results -------------------//
-if (isset($_POST['admr']) && isset($_POST['trmr']) && isset($_POST['ccsr']) && isset($_POST['sbjjr'])) {
+if (isset($_POST['admr']) && isset($_POST['trmr']) && isset($_POST['ccsr']) && isset($_POST['sbjjr']) && isset($_POST['ses'])) {
 	
 	$adm     = $_POST['admr'];
 	$trm     = $_POST['trmr'];
 	$ccs     = $_POST['ccsr'];
 	$sbjj    = $_POST['sbjjr'];
+	$ses     = $_POST['ses'];
 
 
-	$sql = "DELETE FROM result WHERE `admno` = '$adm' AND `term` = '$trm' AND `class` = '$ccs' AND `subject` = '$sbjj'";
+	$sql = "DELETE FROM result WHERE `admno` = '$adm' AND `term` = '$trm' AND `class` = '$ccs' AND `subject` = '$sbjj' AND `ses` = '$ses'";
 	$res = query($sql);
 
 	$_SESSION['del'] = "Subject Result deleted sucessfully";
 
 	echo 'Loading.. Please wait';	
-    echo '<script>window.location.href = "./studres?id='.$adm.'&cls='.$ccs.'&term='.$trm.'"</script>';
+    echo '<script>window.location.href = "./studres?id='.$adm.'&cls='.$ccs.'&term='.$trm.'&ses='.$ses.'"</script>';
 }
 
 
@@ -491,7 +534,7 @@ if (isset($_POST['admr']) && isset($_POST['trmr']) && isset($_POST['ccsr']) && i
 
 
 //submit result
-if(isset($_POST['attd']) && isset($_POST['punc']) && isset($_POST['hons']) && isset($_POST['neat']) && isset($_POST['nonaggr']) && isset($_POST['ldsk']) && isset($_POST['sprt']) && isset($_POST['soci']) && isset($_POST['yth']) && isset($_POST['aes']) && isset($_POST['rel']) && isset($_POST['prin']) && isset($_POST['classr']) && isset($_POST['cls']) && isset($_POST['term']) && isset($_POST['tso']) && isset($_POST['tsa'])  && isset($_POST['tsp']) && isset($_POST['mrkps'])  && isset($_POST['mrkbt']) && isset($_POST['perci']) && isset($_POST['tog']) && isset($_POST['prof'])) {
+if(isset($_POST['attd']) && isset($_POST['punc']) && isset($_POST['hons']) && isset($_POST['neat']) && isset($_POST['nonaggr']) && isset($_POST['ldsk']) && isset($_POST['sprt']) && isset($_POST['soci']) && isset($_POST['yth']) && isset($_POST['aes']) && isset($_POST['rel']) && isset($_POST['prin']) && isset($_POST['classr']) && isset($_POST['cls']) && isset($_POST['term']) && isset($_POST['tso']) && isset($_POST['tsa'])  && isset($_POST['tsp']) && isset($_POST['mrkps'])  && isset($_POST['mrkbt']) && isset($_POST['perci']) && isset($_POST['tog']) && isset($_POST['prof']) && isset($_POST['ses']) && isset($_POST['resm'])) {
 
 	$attd 		= clean($_POST['attd']);
 	$punc 		= clean($_POST['punc']);
@@ -515,21 +558,25 @@ if(isset($_POST['attd']) && isset($_POST['punc']) && isset($_POST['hons']) && is
 	$mrkbt		= clean($_POST['mrkbt']);
 	$perci 		= clean($_POST['perci']);
 	$tog 		= clean($_POST['tog']);
+	$ses  		= clean($_POST['ses']);
+	$resm       = clean($_POST['resm']);
 
-	if ($_POST['prof'] == $_SESSION['rep']) {
-
-		mover($classr, $cls);
-}
-
-	$sql = "SELECT * FROM motor WHERE `admno` = '$classr' AND `class` = '$cls' AND `term` = '$term'";
+	
+	$sql = "SELECT * FROM motor WHERE `admno` = '$classr' AND `class` = '$cls' AND `term` = '$term' AND `ses` = '$ses'";
 	$res = query($sql);
 	if(row_count($res) == 1) {
 		echo "This person already has a result details registered already!";
 	} else {
 
 
-$sql2 = "INSERT INTO motor(`class`, `admno`, `term`, `attendance`, `punctuality`, `honesty`, `neatness`, `nonaggr`, `leader`, `relation`, `sport`, `societies`, `youth`, `aesth`, 	`principal`, `mrkpos`, `mrkobt`, `perc`, `totgra`, `tso`, `tsa`, `tsp`)";
-$sql2.= " VALUES('$cls', '$classr', '$term', '$attd', '$punc', '$hons', '$neat', '$nonaggr', '$ldsk', '$rel', '$sprt', '$soci', '$yth', '$aes', '$prin', '$mrkps', '$mrkbt', '$perci', '$tog', '$tso', '$tsa', '$tsp')";
+		if (isset($_SESSION['rep']) && $_POST['prof'] == $_SESSION['rep']) {
+
+			mover($classr, $cls);
+	}
+	
+
+$sql2 = "INSERT INTO motor(`class`, `admno`, `term`, `attendance`, `punctuality`, `honesty`, `neatness`, `nonaggr`, `leader`, `relation`, `sport`, `societies`, `youth`, `aesth`, 	`principal`, `mrkpos`, `mrkobt`, `perc`, `totgra`, `tso`, `tsa`, `tsp`, `ses`, `resm`)";
+$sql2.= " VALUES('$cls', '$classr', '$term', '$attd', '$punc', '$hons', '$neat', '$nonaggr', '$ldsk', '$rel', '$sprt', '$soci', '$yth', '$aes', '$prin', '$mrkps', '$mrkbt', '$perci', '$tog', '$tso', '$tsa', '$tsp', '$ses', '$resm')";
 $result = query($sql2);
 
 $_SESSION['doneresll'] = "Result submitted successfully";
@@ -542,20 +589,31 @@ echo '<script>window.location.href = "./frn"</script>';
 
 function mover($classr, $cls)  {
 
-
-  if ($cls == 'Basic 1') {
-   $cs = 'Basic 2';
+if ($cls == 'Reception') {
+$cs = 'Transition';
+} else {
+if ($cls == 'Transition') {
+$cs = 'Nido 1';
+} else {
+if ($cls == 'Nido 1') {
+$cs = 'Nido 2';
+} else {
+if ($cls == 'Nido 2') {
+$cs = 'Grade 1';
+} else {
+  if ($cls == 'Grade 1') {
+   $cs = 'Grade 2';
   } else {
-  if ($cls == 'Basic 2') {
-   $cs = 'Basic 3';
+  if ($cls == 'Grade 2') {
+   $cs = 'Grade 3';
   } else {
-  if ($cls == 'Basic 3') {
-   $cs = 'Basic 4';
+  if ($cls == 'Grade 3') {
+   $cs = 'Grade 4';
   } else {
-  if ($cls == 'Basic 4') {
-   $cs = 'Basic 5-6';
+  if ($cls == 'Grade 4') {
+   $cs = 'Grade 5';
   } else {
-  if ($cls == 'Basic 5-6') {
+  if ($cls == 'Grade 5') {
    $cs = 'J.S.S 1';
   } else {
   if ($cls == 'J.S.S 1') {
@@ -582,6 +640,10 @@ function mover($classr, $cls)  {
   }
   }
   }
+}
+}
+}
+}
 	
 	$ssl2 = "UPDATE students SET `Class` = '$cs' WHERE `AdminID` = '$classr'";
 	$ress2 = query($ssl2);	
@@ -607,7 +669,7 @@ if (!empty($_FILES["assfile"]["name"])) {
 	} else {
 
 	// Allow certain file formats
-	if($imageFileType != "docx" && $imageFileType != "pdf" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "doc") {
+	if($imageFileType != "docx" && $imageFileType != "pdf" && $imageFileType != "doc" && $imageFileType != "jpg" && $imageFileType != "jpeg" && $imageFileType != "png") {
 		echo "Sorry, only document files are allowed.";
 		$uploadOk = 0;
 	} else {
@@ -666,7 +728,7 @@ if (!empty($_FILES["fle"]["name"])) {
 	} else {
 
 	// Allow certain file formats
-	if($imageFileType != "docx" && $imageFileType != "pdf" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "doc") {
+	if($imageFileType != "docx" && $imageFileType != "pdf" && $imageFileType != "doc"  && $imageFileType != "jpg" && $imageFileType != "jpeg" && $imageFileType != "png") {
 		echo "Sorry, only document files are allowed.";
 		$uploadOk = 0;
 	} else {
@@ -724,4 +786,120 @@ if (isset($_POST['assclss'])) {
 	echo 'Loading.. Please wait';
 	echo '<script>window.location.href ="./assignment"</script>';
 }
+
+//birthday alert 
+function birthday_alert() {
+
+	$r = date("d");
+	$s = date("m");
+	
+	$sql="SELECT * FROM students WHERE `bday` = '0' OR `bday` = ''";
+	$result_set=query($sql);
+	while($row= mysqli_fetch_array($result_set))
+	{
+		$h = $row['Date'];
+		$g = $row['Month'];
+	
+		if($h == $r && $s == $g) {
+			
+		$admno = $row['AdminID'];
+	
+	   //update table bday
+	   $ssl = "UPDATE students SET `bday` = '1' WHERE `AdminID` = '$admno'";
+	   $rrr = query($ssl);
+	
+	  //alert bday
+	  $c = "Happy Birthday Dear ".$row['SurName']. " ".$row['Middle Name']. " .Wishing you more years in good health and wisdom ahead.";
+	  $d = $_SESSION['cal']['blksmsname'];
+		
+	  $x = $row['Telephone1']." ".$row['Telephone2'];
+	 
+	$a = urlencode('greatnessabolade@outlook.com'); //Note: urlencodemust be added forusernameand
+	$b = urlencode('securemelikekilode'); // passwordas encryption code for security purpose.
+	
+	$url = "https://portal.nigeriabulksms.com/api/?username=".$a."&password=".$b."&message=".$c."&sender=".$d."&mobiles=".$x;
+	$ch = curl_init();
+	curl_setopt($ch,CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	$resp = curl_exec($ch);
+	curl_close($ch);
+	
+	$result = json_decode($resp);
+	
+	$errc =  $result->errno;
+	
+	if($errc == 150) {
+	
+	 echo "BulkSMS Credit Exhausted";
+	} else {
+	
+	
+	}	
+	} else {
+		
+	}
+	}
+	}
+	
+	
+	
+	function staffbday() {
+	
+		$r = date("d");
+		$s = date("m");
+		
+		$sql="SELECT * FROM staff WHERE `date`= '$r' AND `month` = '$s' AND `bday` = '0' OR `bday` = ''";
+		$result_set=query($sql);
+		while($row= mysqli_fetch_array($result_set))
+		{
+	
+			$h = $row['date'];
+			$g = $row['month'];
+		
+			if($h == $r && $s == $g) {
+	
+			$admno = $row['staffid'];
+	
+	   //update table bday
+	   $ssl = "UPDATE staff SET `bday` = '1' WHERE `staffid` = '$admno'";
+	   $rrr = query($ssl);
+		
+			//alert bday
+		  $c = "Happy Birthday Dear ".$row['surname']. " ".$row['firstname']. " .Wishing you more years in good health and wisdom ahead.";
+		  $d = $_SESSION['cal']['blksmsname'];
+			
+		  $x = $row['tel1'];
+		 
+		$a = urlencode('greatnessabolade@outlook.com'); //Note: urlencodemust be added forusernameand
+		$b = urlencode('securemelikekilode'); // passwordas encryption code for security purpose.
+		
+		$url = "https://portal.nigeriabulksms.com/api/?username=".$a."&password=".$b."&message=".$c."&sender=".$d."&mobiles=".$x;
+		$ch = curl_init();
+		curl_setopt($ch,CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		$resp = curl_exec($ch);
+		curl_close($ch);
+	
+		$result = json_decode($resp);
+	
+	$errc =  $result->errno;
+	
+	if($errc == 150) {
+	
+	 echo "BulkSMS Credit Exhausted";
+	} else {
+	
+	
+	}	
+		
+		} else {
+			
+		}
+		}	
+			
+		} 
 ?>

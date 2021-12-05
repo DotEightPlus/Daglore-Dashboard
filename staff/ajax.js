@@ -4,10 +4,11 @@ $(document).ready(function () {
     var classr = $("#class").val();
     var cls = $("#cls").val();
     var term = $("#term").val();
+    var ses = $("#ses").val();
 
     $(toastr.error("Loading Please wait..."));
     window.location.href =
-      "./studres?id=" + classr + "&cls=" + cls + "&term=" + term;
+      "./studres?id=" + classr + "&cls=" + cls + "&term=" + term + "&ses=" + ses;
   });
 
   //uploading result data
@@ -23,37 +24,38 @@ $(document).ready(function () {
     var admis = $("#admis").val();
     var cla = $("#cla").val();
     var term = $("#term").val();
+    var ses = $("#ses").val();
 
     if (stsbj == null || stsbj == "") {
       $(toastr.error("Subject can`t be empty"));
     } else {
       if (test == null || test == "") {
-        $(toastr.error("Kindly input test score"));
+        $(toastr.error("Kindly input 1st test score"));
       } else {
-        if (test > 10) {
-          $(toastr.error("Test score can`t be greater than 10"));
+        if (test > 15) {
+          $(toastr.error("1st Test score can`t be greater than 15"));
         } else {
           if (ass == null || ass == "") {
-            $(toastr.error("Kindly input assignment score"));
+            $(toastr.error("Kindly input 2nd Test score"));
           } else {
-            if (ass > 10) {
-              $(toastr.error("Assignment score can`t be greater than 10"));
+            if (ass > 15) {
+              $(toastr.error("2nd Test score can`t be greater than 15"));
             } else {
               if (exc == null || exc == "") {
-                $(toastr.error("Kindly input class exercise score"));
+                $(toastr.error("Kindly input Assignment score"));
               } else {
                 if (exc > 10) {
                   $(
                     toastr.error(
-                      "Class exercise score can`t be greater than 10"
+                      "Assignment score can`t be greater than 10"
                     )
                   );
                 } else {
                   if (exam == null || exam == "") {
                     $(toastr.error("Exam can`t be empty"));
                   } else {
-                    if (exam > 70) {
-                      $(toastr.error("Exam score can`t be greater than 70"));
+                    if (exam > 60) {
+                      $(toastr.error("Exam score can`t be greater than 60"));
                     } else {
                       if (position == null || position == "") {
                         $(toastr.error("Position in class field is empty"));
@@ -72,6 +74,7 @@ $(document).ready(function () {
                             admis: admis,
                             cla: cla,
                             term: term,
+                            ses: ses,
                           },
                           success: function (data) {
                             $(toastr.error(data)).html(data);
@@ -94,11 +97,12 @@ $(document).ready(function () {
     var adm = $("#subb").val();
     var trm = $("#trm").val();
     var ccs = $("#ccs").val();
+    var ses = $("#ses").val();
 
     $.ajax({
       type: "post",
       url: "functions/init.php",
-      data: { adm: adm, trm: trm, ccs: ccs },
+      data: { adm: adm, trm: trm, ccs: ccs, ses: ses },
       success: function (data) {
         $(toastr.error(data)).html(data);
       },
@@ -130,26 +134,27 @@ $(document).ready(function () {
     var admis = $("#admis").val();
     var cla = $("#cla").val();
     var tms = $("#term").val();
+    var ses = $("#ses").val();
 
     if (stsbj == null || stsbj == "") {
       $(toastr.error("Subject can`t be empty"));
     } else {
       if (test == null || test == "") {
-        $(toastr.error("Kindly input test score"));
+        $(toastr.error("Kindly input 1st test score"));
       } else {
-        if (test > 10) {
-          $(toastr.error("Test score can`t be greater than 10"));
+        if (test > 15) {
+          $(toastr.error("1st Test score can`t be greater than 15"));
         } else {
           if (ass == null || ass == "") {
-            $(toastr.error("Kindly input assignment score"));
+            $(toastr.error("Kindly input 2nd Test score"));
           } else {
-            if (ass > 10) {
-              $(toastr.error("Assignment score can`t be greater than 10"));
+            if (ass > 15) {
+              $(toastr.error("2nd Test score can`t be greater than 15"));
             } else {
               if (exc == null || exc == "") {
-                $(toastr.error("Kindly input class exercise score"));
+                $(toastr.error("Kindly input assignment score"));
               } else {
-                if (exc > 10) {
+                if (exc > 15) {
                   $(
                     toastr.error(
                       "Class exercise score can`t be greater than 10"
@@ -179,6 +184,7 @@ $(document).ready(function () {
                             admis: admis,
                             cla: cla,
                             tms: tms,
+                            ses: ses,
                           },
                           success: function (data) {
                             $(toastr.error(data)).html(data);
@@ -202,11 +208,12 @@ $(document).ready(function () {
     var trmr = $("#trmr").val();
     var ccsr = $("#ccsr").val();
     var sbjjr = $("#sbjjr").val();
+    var ses = $("#ses").val();
 
     $.ajax({
       type: "post",
       url: "functions/init.php",
-      data: { admr: admr, trmr: trmr, ccsr: ccsr, sbjjr: sbjjr },
+      data: { admr: admr, trmr: trmr, ccsr: ccsr, sbjjr: sbjjr, ses:ses },
       success: function (data) {
         $(toastr.error(data)).html(data);
       },
@@ -218,10 +225,10 @@ $(document).ready(function () {
     var classr = $("#admis").val();
     var cls = $("#cla").val();
     var term = $("#term").val();
+    var ses = $("#ses").val();
 
     $(toastr.error("Loading Please wait..."));
-    window.location.href =
-      "./resultnext?id=" + classr + "&cls=" + cls + "&term=" + term;
+    window.location.href = "./resultnext?id=" + classr + "&cls=" + cls + "&term=" + term + "&ses=" + ses;
   });
 
   //submit result
@@ -229,6 +236,7 @@ $(document).ready(function () {
     var classr = $("#admis").val();
     var cls = $("#cla").val();
     var term = $("#term").val();
+    var ses = $("#ses").val();
     var attd = $("#attd").val();
     var punc = $("#punc").val();
     var hons = $("#hons").val();
@@ -249,6 +257,7 @@ $(document).ready(function () {
     var perci = $("#perci").val();
     var tog = $("#tog").val();
     var prof = $("#pro").val();
+    var resm = $("#resmes").val();
 
     if (attd == null || attd == "") {
       $(toastr.error("Attendance field is empty"));
@@ -403,6 +412,8 @@ $(document).ready(function () {
                                                       perci: perci,
                                                       tog: tog,
                                                       prof: prof,
+                                                      ses: ses,
+                                                      resm: resm,
                                                     },
                                                     success: function (data) {
                                                       $(
@@ -437,13 +448,14 @@ $(document).ready(function () {
 
   //preview result
   $("#prev").click(function () {
-    var classr = $("#class").val();
-    var cls = $("#cls").val();
+    var std = $("#std").val();
+    var cls = $("#class").val();
     var term = $("#term").val();
+    var ses = $("#ses").val();
 
     $(toastr.error("Loading Please wait..."));
     window.location.href =
-      "./previewres?id=" + classr + "&cls=" + cls + "&term=" + term;
+      "./moreres?id=" + std + "&cls=" + cls + "&term=" + term + "&ses=" + ses;
   });
 
   //upload assignment
