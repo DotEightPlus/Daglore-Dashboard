@@ -115,10 +115,10 @@ $qw2  = mysqli_fetch_array($res2);
 
         <tr>
             <th>Subject</th>
-            <th width="90px">CAT 1 <br />(10)</th>
-            <th width="90px">CAT 2 <br />(10)</th>
-            <th width="90px">CAT 3<br>(10)</th>
-            <th>Exam Score<br>(70)</th>
+            <th width="90px">1st Test <br />(15)</th>
+            <th width="90px">2nd Test <br />(15)</th>
+            <th width="90px">Assignment<br>(10)</th>
+            <th>Exam Score<br>(60)</th>
             <th>Total<br>(100)</th>
             <th>1st Term <br />Score</th>
             <th>2nd Term <br />Score</th>
