@@ -7,11 +7,11 @@ include("functions/init.php");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Daglore Model School | Student Portal</title>
+    <title><?php echo $call['school'] ?> | Student Portal</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Daglore Model School | Student Portal">
-    <meta name="keywords" content="Daglore Model School | Student Portal">
+    <meta name="description" content="<?php echo $call['school'] ?> | Student Portal">
+    <meta name="keywords" content="<?php echo $call['school'] ?> | Student Portal">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <link rel="icon" href="dist/img/logo.png" type="image/png" />
@@ -27,7 +27,7 @@ include("functions/init.php");
     <!-- Automatic element centering -->
     <div class="lockscreen-wrapper">
         <div class="lockscreen-logo">
-            <a href="https://dagloremodelschool.com.ng"><b>Daglore Model School</b></a>
+            <a href="<?php echo $call['website'] ?>"><b><?php echo $call['school'] ?></b></a>
         </div>
         <!-- User name -->
         <div class="lockscreen-name">Student Portal</div>
@@ -61,9 +61,8 @@ include("functions/init.php");
         </div>
 
         <div class="lockscreen-footer text-center">
-            &copy; <?php echo date("Y"); ?> <b><a href="https://dagloremodelschool.com.ng" class="text-black">Daglore
-                    Model
-                    School</a></b><br>
+            &copy; <?php echo date("Y"); ?> <b><a href="<?php echo $call['website'] ?>"
+                    class="text-black"><?php echo $call['school'] ?></a></b><br>
             Developed by <a target="_blank" href="https://doteightplus.com" class="text-black"> DotEightPlus</a>
         </div>
     </div>

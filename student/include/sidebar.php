@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Daglore Model School | Student Portal</title>
+    <title><?php echo $call['school'] ?> | Student Portal</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Daglore Model School | Student Portal">
-    <meta name="keywords" content="Daglore Model School">
+    <meta name="description" content="<?php echo $call['school'] ?> | Student Portal">
+    <meta name="keywords" content="<?php echo $call['school'] ?>">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
@@ -45,11 +45,12 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="https://dagloremodelschool.com.ng" class="nav-link">Website</a>
+                    <a href="<?php echo $call['website'] ?>" class="nav-link">Website</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a target="_blank" href="https://doteightplus.com/contact" class="nav-link">Portal Help</a>
                 </li>
+                <a id="google_translate_element" href="#"></a>
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -57,10 +58,10 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="http://dagloremodelschool.com.ng" class="brand-link">
+            <a href="<?php echo $call['website'] ?>" class="brand-link">
                 <img src="dist/img/logo.png" alt="user profile picture" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
-                <span class="brand-text font-weight-light">Daglore Student Portal</span>
+                <span class="brand-text font-weight-light"><?php echo $call['alias'] ?> Student Portal</span>
             </a>
 
             <!-- Sidebar -->
@@ -77,7 +78,7 @@
  $_SESSION['name'] = $row['SurName']." ".$row['Middle Name'];
   ?>
                         <?php echo'
-          <img style="width: 60px; height: 60px;" src="https://admin.dagloremodelschool.com.ng/upload/studentDP/'.$row['Passport'].'" class="img-circle elevation-2" alt="Profile Picture">';
+          <img style="width: 60px; height: 60px;" src="'.$call['admn'].'/upload/studentDP/'.$row['Passport'].'" class="img-circle elevation-2" alt="Profile Picture">';
           ?>
                     </div>
                     <div class="info">
@@ -155,13 +156,13 @@
   ?>
                                 <li class="nav-item">
                                     <?php echo '
-                 <a target="_blank" href="https://admin.dagloremodelschool.com.ng/upload/admissionletter/'.$pass.'.pdf" class="nav-link">
+                 <a target="_blank" href="'.$call['admn'].'/admissionletter?id='.$_SESSION['AdminID'].'" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Admission Letter</p>
                 </a>
               </li>
                <li class="nav-item">
-                 <a target="_blank" href="https://admin.daloremodelschool.com.ng/upload/IdCard/'.$pass.'.php" class="nav-link">
+                 <a target="_blank" href="'.$call['admn'].'/atcard-print?id='.$_SESSION['AdminID'].'" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>ID Card</p>
                 </a>';

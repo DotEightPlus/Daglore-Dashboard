@@ -277,7 +277,7 @@ if (!empty($_FILES["assfile"]["name"])) {
 	} else {
 
 	// Allow certain file formats
-	if($imageFileType != "docx" && $imageFileType != "pdf" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "doc") {
+	if($imageFileType != "docx" && $imageFileType != "pdf" && $imageFileType != "doc" && $imageFileType != "jpg" && $imageFileType != "jpeg" && $imageFileType != "png") {
 		echo "Sorry, only document files are allowed.";
 		$uploadOk = 0;
 	} else {
@@ -338,7 +338,7 @@ if (!empty($_FILES["fle"]["name"])) {
 	} else {
 
 	// Allow certain file formats
-	if($imageFileType != "docx" && $imageFileType != "pdf" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "doc") {
+	if($imageFileType != "docx" && $imageFileType != "pdf" && $imageFileType != "doc" && $imageFileType != "jpg" && $imageFileType != "jpeg" && $imageFileType != "png") {
 		echo "Sorry, only document files are allowed.";
 		$uploadOk = 0;
 	} else {
@@ -371,4 +371,121 @@ echo 'Loading.. Please wait!';
 
 //unset($_SESSION['ws']);
 }
+
+
+//birthday alert 
+function birthday_alert() {
+
+	$r = date("d");
+	$s = date("m");
+	
+	$sql="SELECT * FROM students WHERE `bday` = '0' OR `bday` = ''";
+	$result_set=query($sql);
+	while($row= mysqli_fetch_array($result_set))
+	{
+		$h = $row['Date'];
+		$g = $row['Month'];
+	
+		if($h == $r && $s == $g) {
+			
+		$admno = $row['AdminID'];
+	
+	   //update table bday
+	   $ssl = "UPDATE students SET `bday` = '1' WHERE `AdminID` = '$admno'";
+	   $rrr = query($ssl);
+	
+	  //alert bday
+	  $c = "Happy Birthday Dear ".$row['SurName']. " ".$row['Middle Name']. " .Wishing you more years in good health and wisdom ahead.";
+	  $d = $_SESSION['cal']['blksmsname'];
+		
+	  $x = $row['Telephone1']." ".$row['Telephone2'];
+	 
+	$a = urlencode('greatnessabolade@outlook.com'); //Note: urlencodemust be added forusernameand
+	$b = urlencode('securemelikekilode'); // passwordas encryption code for security purpose.
+	
+	$url = "https://portal.nigeriabulksms.com/api/?username=".$a."&password=".$b."&message=".$c."&sender=".$d."&mobiles=".$x;
+	$ch = curl_init();
+	curl_setopt($ch,CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	$resp = curl_exec($ch);
+	curl_close($ch);
+	
+	$result = json_decode($resp);
+	
+	$errc =  $result->errno;
+	
+	if($errc == 150) {
+	
+	 echo "BulkSMS Credit Exhausted";
+	} else {
+	
+	
+	}	
+	} else {
+		
+	}
+	}
+	}
+	
+	
+	
+	function staffbday() {
+	
+		$r = date("d");
+		$s = date("m");
+		
+		$sql="SELECT * FROM staff WHERE `date`= '$r' AND `month` = '$s' AND `bday` = '0' OR `bday` = ''";
+		$result_set=query($sql);
+		while($row= mysqli_fetch_array($result_set))
+		{
+	
+			$h = $row['date'];
+			$g = $row['month'];
+		
+			if($h == $r && $s == $g) {
+	
+			$admno = $row['staffid'];
+	
+	   //update table bday
+	   $ssl = "UPDATE staff SET `bday` = '1' WHERE `staffid` = '$admno'";
+	   $rrr = query($ssl);
+		
+			//alert bday
+		  $c = "Happy Birthday Dear ".$row['surname']. " ".$row['firstname']. " .Wishing you more years in good health and wisdom ahead.";
+		  $d = $_SESSION['cal']['blksmsname'];
+			
+		  $x = $row['tel1'];
+		 
+		$a = urlencode('greatnessabolade@outlook.com'); //Note: urlencodemust be added forusernameand
+		$b = urlencode('securemelikekilode'); // passwordas encryption code for security purpose.
+		
+		$url = "https://portal.nigeriabulksms.com/api/?username=".$a."&password=".$b."&message=".$c."&sender=".$d."&mobiles=".$x;
+		$ch = curl_init();
+		curl_setopt($ch,CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		$resp = curl_exec($ch);
+		curl_close($ch);
+	
+		$result = json_decode($resp);
+	
+	$errc =  $result->errno;
+	
+	if($errc == 150) {
+	
+	 echo "BulkSMS Credit Exhausted";
+	} else {
+	
+	
+	}	
+		
+		} else {
+			
+		}
+		}	
+			
+		}
 ?>

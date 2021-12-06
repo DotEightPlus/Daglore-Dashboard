@@ -8,10 +8,11 @@ $(document).ready(function()
 	var admn	 = $("#admn").val();
 	var cls      = $("#cls").val();
     var tmms     = $("#tmms").val(); 
+	var ses     = $("#ses").val(); 
 
    
    	$(toastr.error('Loading Please wait...'));
-	window.location.href = "./res?id="+admn+"&cls="+cls+"&term="+tmms;	
+	window.location.href = "./res?id="+admn+"&cls="+cls+"&term="+tmms+"&ses="+ses;	
 
 })
 
