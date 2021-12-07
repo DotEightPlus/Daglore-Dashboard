@@ -71,12 +71,13 @@ $qw2  = mysqli_fetch_array($res2);
 
 <body>
     <div class="text-center">
-        <h1><img style="width: 50px; height: 50px;" src="dist/img/logo.png"> DAGLORE MODEL SCHOOL</h1>
+        <h1><img style="width: 50px; height: 50px;" src="dist/img/logo.png"> <b><?php echo $call['school'] ?></b></h1>
         <h6><b>Gov`t Approved</b></h6>
-        <h5>Ikole-Ekiti, Ekiti State, Nigeria.</h5>
-        <h6><b>Tel.: 0810311902 &nbsp; &nbsp; &nbsp; Website.: www.dagloremodelschool.com.ng &nbsp; &nbsp; &nbsp;
+        <h5><?php echo $call['addr'] ?></h5>
+        <h6><b>Tel.: <?php echo $call['tel'] ?> &nbsp; &nbsp; &nbsp; Website.: <?php echo $call['website'] ?> &nbsp;
+                &nbsp; &nbsp;
                 Email.:
-                info@dagloremodelschool.com.ng</b></h6>
+                <?php echo $call['emal'] ?></b></h6>
 
         <br />
 
@@ -92,30 +93,34 @@ $qw2  = mysqli_fetch_array($res2);
             <h5 class="col-sm-6">Admission Number.: <b><?php echo $data ?></b></h5>
             <h5 class="col-sm-6">Class.: <b><?php echo $cls ?></b></h5>
             <h5 class="col-sm-6">No on Roll.: <b><?php echo $qw1['altol'] ?></b></h5>
-            <h5 class="col-sm-6">Times School Opened.: <b><?php echo $row3['tso'] ?></b></h5>
             <h5 class="col-sm-6">Times Absent.: <b><?php echo $row3['tsa'] ?></b></h5>
+            <h5 class="col-sm-6">School Resumes.:
+                <b><?php echo date('l, F d, Y ', strtotime($row3['resm'])); ?></b>
+            </h5>
             <!-- <h5 class="col-sm-6">Times Present.: <?php echo $row3['tsp'] ?></h5> -->
         </div>
     </div>
     <br />
     <table class="table table-hover text-center table-bordered table-striped">
+
+
         <tr>
             <th>Subject</th>
-            <th>Test<br>(10)</th>
-            <th>Assignment<br>(10)</th>
-            <th>Class Exercise<br>(10)</th>
-            <th>Exam Score<br>(70)</th>
+            <th width="90px">1st Test <br />(15)</th>
+            <th width="90px">2nd Test <br />(15)</th>
+            <th width="90px">Assignment<br>(10)</th>
+            <th>Exam Score<br>(60)</th>
             <th>Total<br>(100)</th>
-            <th>1st Term Score</th>
-            <th>2nd Term Score</th>
-            <th>3rd Term Score</th>
-            <th>Annual Score</th>
-            <th>Position in Class</th>
+            <th>1st Term <br />Score</th>
+            <th>2nd Term <br />Score</th>
+            <th>3rd Term <br />Score</th>
+            <th>Annual <br />Score</th>
+            <th>Position</th>
             <th>Grade</th>
             <th>Remark</th>
         </tr>
         <?php
-$sql= "SELECT * FROM `result` WHERE `admno` = '$data' AND `term` = '$tms'";
+$sql= "SELECT * FROM `result` WHERE `admno` = '$data' AND `term` = '$tms' AND `ses` = '$ses'";
 $result_set=query($sql);
 if(row_count($result_set) == "") {
             
@@ -123,9 +128,21 @@ if(row_count($result_set) == "") {
 while($row= mysqli_fetch_array($result_set))
  {
   $frd = $row['subject'];
-$sql2= "SELECT * FROM `score` WHERE `admno` = '$data' AND `subject` = '$frd'";
+$sql2= "SELECT * FROM `score` WHERE `admno` = '$data' AND `subject` = '$frd' AND `ses` = '$ses'";
 $result_set2=query($sql2);
 $row2= mysqli_fetch_array($result_set2);
+
+if($tms == "1st Term"){
+    $annual = $row2['fscore'];
+    } else {
+    if($tms == "2nd Term") {
+    $annual = ($row2['fscore'] + $row2['sndscore']) / 2;
+    }else {
+    if($tms == "3rd Term") {
+      $annual = ($row2['fscore'] + $row2['sndscore'] + $row2['tscore']) / 3;  
+    }
+    }
+    }
 ?>
         <tr>
             <td><?php echo ucwords($row['subject']); ?></td>
@@ -137,7 +154,7 @@ $row2= mysqli_fetch_array($result_set2);
             <td><?php echo $row2['fscore'] ?></td>
             <td><?php echo $row2['sndscore'] ?></td>
             <td><?php echo $row2['tscore'] ?></td>
-            <td><?php echo $row2['fscore'] + $row2['sndscore'] + $row2['tscore'] ?></td>
+            <td><?php echo $annual ?></td>
             <td><?php echo $row['position'] ?></td>
             <td><?php echo $row['grade'] ?></td>
             <td><?php echo $row['remark'] ?></td>
@@ -156,7 +173,7 @@ $row2= mysqli_fetch_array($result_set2);
             <th class="text-center" colspan="2">Academic Performance Summary</th>
         </tr>
         <?php
-$sql2 = "SELECT * FROM `motor` WHERE `admno` = '$data' AND `term` = '$tms'";
+$sql2 = "SELECT * FROM `motor` WHERE `admno` = '$data' AND `term` = '$tms' AND `ses` = '$ses'";
 $result_set2 = query($sql2);
 $row2 = mysqli_fetch_array($result_set2);
 if(row_count($result_set2) == "") {
@@ -169,30 +186,37 @@ if(row_count($result_set2) == "") {
             <td><?php echo $row2['attendance'] ?></td>
             <td>Sport</td>
             <td><?php echo $row2['sport'] ?></td>
-            <td>Mark Possible.: &nbsp;&nbsp; <?php echo $row2['mrkpos'] ?></td>
-            <td>Mark Obtained.: &nbsp;&nbsp; <?php echo $row2['mrkobt'] ?></td>
+            <td><b>Mark Possible .:</b> &nbsp;&nbsp; <?php echo $row2['mrkpos'] ?></td>
+            <td><b>Mark Obtained .:</b> &nbsp;&nbsp; <?php echo $row2['mrkobt'] ?></td>
         </tr>
         <tr>
             <td>Punctuality</td>
             <td><?php echo $row2['punctuality'] ?></td>
             <td>Societies</td>
             <td><?php echo $row2['societies'] ?></td>
-            <td colspan="2">Percentage.: &nbsp;&nbsp; <?php echo $row2['perc'] ?></td>
+            <td colspan="2"><b>Percentage .:</b> &nbsp;&nbsp; <?php echo $row2['perc'] ?></td>
         </tr>
         <tr>
             <td>Honesty</td>
             <td><?php echo $row2['honesty'] ?></td>
             <td>Youth Organ</td>
             <td><?php echo $row2['youth'] ?></td>
-            <td>Total Grade.: &nbsp;&nbsp; <?php echo $row2['totgra'] ?></td>
-            <td><?php echo $wed ?></td>
+            <td><b>Total Grade.:</b> &nbsp;&nbsp; <?php echo $row2['totgra'] ?></td>
+            <?php
+    if (isset($_SESSION['rep'])) {
+   $wed = $_SESSION['rep'];
+   echo '<td>'.$wed.'</td>';
+} else {
+    echo '<td></td>';
+}    
+?>
         </tr>
         <tr>
             <td>Neatness</td>
             <td><?php echo $row2['neatness'] ?></td>
             <td>Aesthetics</td>
             <td><?php echo $row2['aesth'] ?></td>
-            <td colspan="2" rowspan="6">Principal Comment.: &nbsp;&nbsp; <?php echo $row2['principal'] ?></td>
+            <td colspan="2" rowspan="6"><b>Principal Comment.:</b> &nbsp;&nbsp; <?php echo $row2['principal'] ?></td>
         </tr>
         <tr>
             <td>Non-Aggressive</td>
@@ -213,6 +237,7 @@ if(row_count($result_set2) == "") {
     </table>
 
 </body>
+
 <script type="text/javascript">
 window.addEventListener("load", window.print());
 </script>
